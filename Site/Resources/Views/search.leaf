@@ -1,0 +1,15 @@
+#set("title") { #(query) }
+
+#set("body") {
+    <div class="start">
+        </br></br>
+        <img src="https://nya.boplats.se/231/static/logo.png">
+
+<h1>Sök användare # #(user.id)</h1>
+<h2 style="color:black;">#(user.firstName) #(user.lastName)</h2>
+        <h1 style="color:red;">#(error)</h1>
+    </div>
+
+}
+
+#embed("base")

@@ -1,0 +1,13 @@
+#set("title") { Hello, #(name)! }
+
+#set("body") {
+    <div class="start">
+        </br></br>
+        <img src="https://nya.boplats.se/231/static/logo.png">
+
+	    <h1>Välkommen #(name)!</h1>
+    </div>
+
+}
+
+#embed("base")
