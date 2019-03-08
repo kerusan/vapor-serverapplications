@@ -14,9 +14,15 @@ final class NoController {
     public func noroute(request: Request) throws -> Future<View>  {
         let view = try request.view()
     
-        return view.render("start", [
+        return view.render("login", [
                 "name": " till Boplats"
             ])
     }
 
+    public func test(request: Request) throws -> Future<View>  {
+        let view = try request.view()
+        let result = view.render("test")
+    
+        return result
+    }
 }

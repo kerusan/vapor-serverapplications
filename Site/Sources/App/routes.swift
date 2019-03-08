@@ -3,10 +3,15 @@ import Vapor
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
     // Launches Boplats page
+    let noController = NoController()
     router.get { req -> Future<View> in
-        let noController = NoController()
         return try noController.noroute(request: req)
     }
+    
+    router.get("test") { req -> Future<View> in
+        return try noController.test(request: req)
+    }
+
 
     // Shows login page and logins user
     let loginController = LoginController()

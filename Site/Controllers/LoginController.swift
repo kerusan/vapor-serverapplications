@@ -22,7 +22,7 @@ final class LoginController {
         }
 
         let view = try request.view()
-        let result = view.render("start", ["name": name])
+        let result = view.render("login", ["name": name])
 
         return result
     }
