@@ -18,6 +18,4 @@ public func routes(_ router: Router) throws {
     // Example of configuring a controller
     let loginController = LoginController()
     router.post("api", "login", use: loginController.login)
-    
-    
 }
