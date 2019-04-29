@@ -14,11 +14,10 @@ let package = Package(
         .package(url: "https://github.com/vapor/http.git", from: "3.0.0"),
     ],
     targets: [
-        .target(name: "App", dependencies: ["Leaf", "Vapor"]),
+        .target(name: "App", dependencies: ["Leaf", "Vapor", "HTTP"]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
             
-        .target(name: "Project", dependencies: ["HTTP"])
     ]
 )
 
