@@ -7,8 +7,8 @@ extension DatabaseIdentifier {
         return .init("UAF")
     }
     
-    static var sqlite: DatabaseIdentifier<SQLiteDatabase> {
-        return .init("UAF")
+    static var free: DatabaseIdentifier<SQLiteDatabase> {
+        return .init("FREE")
     }
 }
 
@@ -31,18 +31,15 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     // Configure a SQLite database
     //let uaf = try SQLiteDatabase(storage: .memory)
     let uaf = try SQLiteDatabase(storage: .file(path: "/Users/kerusan/Developer/Database/SQLite/UAF.sqlite"))
-    
+    let free = try SQLiteDatabase(storage: .file(path: "/Users/kerusan/Developer/Database/SQLite/UAF.sqlite"))
+
     // Register the configured SQLite database to the database config.
     var databases = DatabasesConfig()
     databases.add(database: uaf, as: .uaf)
     databases.enableLogging(on: .uaf)
+    databases.add(database: free, as: .free)
+    databases.enableLogging(on: .free)
     services.register(databases)
-
-    let sqliteDB = try SQLiteDatabase(storage: .file(path: "/Users/kerusan/Developer/Database/SQLite/UAF.sqlite"))
-    var dbsConfig = DatabasesConfig()
-    dbsConfig.add(database: sqliteDB, as: .sqlite)
-    dbsConfig.enableLogging(on: .sqlite)
-    services.register(dbsConfig)
 
     // Configure migrations
     var migrations = MigrationConfig()

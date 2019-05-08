@@ -13,17 +13,30 @@ final class Session: SQLiteModel {
     var expires: Date
 
     /// Creates a new `Session`.
-    init(id: Int? = nil, representation: String) {
+    init(id: Int? = nil, exp: Date?, representation: String) {
         self.id = id
-        self.representation = representation
-        self.expires = Date()
-        self.expires.addTimeInterval(expiresInterval)
+        self.representation = hashString()
+        if exp! < Date() {
+            self.expires = Date()
+            self.expires.addTimeInterval(expiresInterval)
+        } else {
+            self.expires = exp!
+        }
     }
-    
+
     func updateExpires() {
         self.expires = Date()
         self.expires.addTimeInterval(expiresInterval)
     }
+}
+
+func hashString() -> String {
+    var stringRepresentation = "\(Date().hashValue)"
+    
+    if stringRepresentation.hasPrefix("-") {
+        stringRepresentation.remove(at: stringRepresentation.startIndex)
+    }
+    return stringRepresentation
 }
 
 /// Allows `Session` to be used as a dynamic migration.

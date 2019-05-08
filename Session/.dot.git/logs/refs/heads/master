@@ -1,0 +1,5 @@
+0000000000000000000000000000000000000000 54c34be5321ff50d32e07ee18c51a5dc00f3ebc8 Kjell Nilsson <kerusan@mac.com> 1555328055 +0200	commit (initial): 'created Session from template https://github.com/vapor/api-template'
+54c34be5321ff50d32e07ee18c51a5dc00f3ebc8 e1969b9db8bb0c6d8386440fa9137b861d2205d3 Kjell Nilsson <kerusan@mac.com> 1555329677 +0200	commit: First commit
+e1969b9db8bb0c6d8386440fa9137b861d2205d3 4fd34bf81070bc9cd0073afeb8992c9932eba38a Kjell Nilsson <kerusan@mac.com> 1556542145 +0200	commit: Trying to get timed db access
+4fd34bf81070bc9cd0073afeb8992c9932eba38a 03c2836e62c95a501c2ce6d47696fba1c17cb448 Kjell Nilsson <kerusan@mac.com> 1556542284 +0200	commit: Trying to get db access in timed event
+03c2836e62c95a501c2ce6d47696fba1c17cb448 aa8a94f4032890e0c856205ad8af7743272179d1 Kjell Nilsson <kerusan@mac.com> 1557305617 +0200	commit: Finally got timed session deletion working

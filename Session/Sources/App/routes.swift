@@ -8,7 +8,7 @@ public func routes(_ router: Router) throws {
     }
     
     // Example of configuring a controller
-    let sessionController = SessionController()
+    let sessionController = SessionController.shared
     router.get("api", "session", use: sessionController.all)
     router.get("api", "session", String.parameter, use: sessionController.trigger)
     router.post("api", "session", use: sessionController.create)

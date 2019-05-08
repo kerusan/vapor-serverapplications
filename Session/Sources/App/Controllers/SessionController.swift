@@ -6,36 +6,30 @@ import DatabaseKit
 /// Controls basic CRUD operations on `Session`s.
 final class SessionController {
 
+    static let shared = SessionController()
+
     var sessionArray: Array<Session>
     var timer: DispatchSourceTimer
 
     /// Initialize the controller
     init() {
-        do {
-            self.timer = DispatchSource.makeTimerSource()
-            self.sessionArray = []
-            self.sessionArray = try fetchSessions()
-        } catch {
-            print("Problem fetching sessions")
-        }
-
-        startTimer()
-        print("Timer created")
+        self.timer = DispatchSource.makeTimerSource()
+        self.sessionArray = []
     }
 
     // *** Function for cancel old sessions ****************************************
 
     ///Cancel sessions that has has timed out
-    func fetchSessions() throws -> Array<Session> {
-        let app = try Application()
-        let conn = try app.requestPooledConnection(to: .uaf).wait()
-
-        let sessions = try Session.query(on: conn).all().wait()
-
+    func fetchSessions(app: Application) throws -> Array<Session> {
+        var sessions: Array<Session> = []
         do {
-            try app.releasePooledConnection(conn, to: .uaf)
+            let conn = try app.requestPooledConnection(to: .free).wait()
+            
+            sessions = try Session.query(on: conn).all().wait()
+            try app.releasePooledConnection(conn, to: .free)
         } catch {
-            print("Outch")
+            print("Fetching sessions did report an error.")
+            print(error)
         }
 
         return sessions
@@ -44,14 +38,20 @@ final class SessionController {
     // *** Function for configure and activatetimer ********************************
 
     /// Configure & activate timer
-    func startTimer() {
+    func startTimer(app: Application) {
         timer.setEventHandler() {
-            self.cancelSessions()
+            self.cancelSessions(app: app)
         }
 
-        timer.schedule(deadline: .now() + .seconds(5), repeating: .seconds(10), leeway: .seconds(10))
+        timer.schedule(deadline: .now() + .seconds(10), repeating: .seconds(10), leeway: .seconds(10))
         if #available(OSX 10.14.3, *) {
             timer.activate()
+        }
+        
+        do {
+            self.sessionArray = try fetchSessions(app: app)
+        } catch {
+            print(error)
         }
     }
 
@@ -59,18 +59,19 @@ final class SessionController {
     // *** Function for cancel old sessions ****************************************
 
     ///Cancel sessions that has has timed out
-    func cancelSessions() {
-        print("Cancel sessions")
-
+    func cancelSessions(app: Application) {
+        print("Canceling")
         do {
-            print("Find pooled connection")
-           let app = try Application()
-            let conn = try app.newConnection(to: .sqlite).wait()
-            print("Done pooled connection")
+            let conn = try app.requestPooledConnection(to: .free).wait()
+               print(self.sessionArray.count)
 
-            for i in stride(from: sessionArray.count - 1, to: 0, by: -1) {
-                let sessionObject = sessionArray[i]
-                let now = Date().addingTimeInterval(100)
+            for i in stride(from: self.sessionArray.count - 1, to: -1, by: -1) {
+                print(i)
+                let sessionObject = self.sessionArray[i]
+                let now = Date().addingTimeInterval(1)
+                
+                print(sessionObject.expires.string(format: "yyyy-MM-dd HH:mm:ss"))
+                print(now.string(format: "yyyy-MM-dd HH:mm:ss"))
                 if sessionObject.expires < now {
                     let representation = sessionObject.representation
                     print(representation)
@@ -79,7 +80,7 @@ final class SessionController {
                 }
             }
 
-            try app.releasePooledConnection(conn, to: .uaf)
+            try app.releasePooledConnection(conn, to: .free)
         } catch {
             print(error)
         }
@@ -93,13 +94,13 @@ final class SessionController {
         return Session.query(on: request).all()
     }
 
-    /// Returns a list of `Session`s that has a representation equal to the parameter.
+    /// Returns a list of `Session`s that has a representation equal to the parameter. Triggers expiering date.
     func trigger(_ request: Request) throws -> Future<[Session]> {
         let sessionRepresentation = try request.parameters.next(String.self)
         let sessions = Session.query(on: request).filter(\.representation == sessionRepresentation).all()
 
         return sessions.flatMap { sessions in
-            print("Trigger session")
+            // Trigger session so it does get a new expiering date
             self.updateExpires(sessions: sessions, request: request)
             return request.future(sessions)
         }
@@ -108,13 +109,12 @@ final class SessionController {
     /// Saves a decoded `Session` to the database.
     func create(_ request: Request) throws -> Future<Session> {
         return try request.content.decode(Session.self).flatMap { session in
-            print("Creating session")
-            var newSession = session
-            if (newSession.id != nil) {
-                let stringRepresentation = self.hashString()
-                newSession = Session(id: nil, representation: stringRepresentation)
-            }
+            var newSession: Session
+            
+            newSession = Session(id: nil, exp: session.expires, representation: session.representation)
+
             self.sessionArray.append(newSession)
+            print(self.sessionArray.count)
             return newSession.save(on: request)
         }
     }
@@ -122,8 +122,8 @@ final class SessionController {
     /// Deletes a parameterized `Session`.
     func delete(_ request: Request) throws -> Future<HTTPStatus> {
         let parameter = try request.parameters.next(Session.self)
+        
         return parameter.flatMap { session -> Future<Void> in
-            print("Deleting session")
             self.removeFromSessionArray(session: session)
             return session.delete(on: request)
         }.transform(to: .ok)
@@ -132,15 +132,6 @@ final class SessionController {
 
     // *** Private functions for routes *********************************************
 
-    // Creates a string hashvalue
-    func hashString() -> String {
-        var stringRepresentation = "\(Date().hashValue)"
-        if stringRepresentation.hasPrefix("-") {
-            stringRepresentation.remove(at: stringRepresentation.startIndex)
-        }
-        return stringRepresentation
-    }
-
     // Updates the expires date
     func updateExpires(sessions: Array<Session>, request: Request) {
         if sessions.count == 1 {
@@ -148,12 +139,11 @@ final class SessionController {
             sessionToUpdate.updateExpires()
             let _ = sessionToUpdate.save(on: request)
         }
-        print("Array: \(sessionArray)")
     }
 
     // Removes session from the sessionArray
     func removeFromSessionArray(session: Session) {
-        for i in stride(from: sessionArray.count - 1, to: 0, by: -1) {
+        for i in stride(from: sessionArray.count - 1, to: -1, by: -1) {
             let sessionObject = sessionArray[i]
             if sessionObject.representation == session.representation {
                 sessionArray.remove(at: i)
@@ -163,3 +153,10 @@ final class SessionController {
 
 }
 
+extension Date {
+    func string(format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.string(from: self)
+    }
+}
