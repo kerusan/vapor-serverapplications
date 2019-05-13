@@ -48,10 +48,7 @@ func hashString() -> String {
 extension Session: Content { }
 
 /// Allows `Session` to be used as a dynamic parameter in route definitions.
-extension Session: Parameter {
-
-
-
+extension Session {
 
     static func resolveParameter(_ parameter: String, on container: Container) throws -> String {
         return try next.respond(to: request)

@@ -15,8 +15,8 @@
         "repositoryURL": "ssh+git://git.oops.se/var/OopsGit/Vapor/CFrontbaseSupport.git",
         "state": {
           "branch": null,
-          "revision": "4ba6fce7b7e5fad827fbbe754c314709a5170b54",
-          "version": "1.0.2"
+          "revision": "2cfcad465e1ee30d28f81301e4a1196946837681",
+          "version": "1.0.5"
         }
       },
       {
@@ -60,8 +60,8 @@
         "repositoryURL": "ssh+git://git.oops.se/var/OopsGit/Vapor/Frontbase.git",
         "state": {
           "branch": null,
-          "revision": "8e6e324f8913d3beb4bfd03539c7b3e80969cb63",
-          "version": "1.0.3"
+          "revision": "90791a566e2b593e44832f685a6a969abbec3970",
+          "version": "1.0.5"
         }
       },
       {
