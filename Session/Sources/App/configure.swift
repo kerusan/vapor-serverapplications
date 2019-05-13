@@ -1,13 +1,22 @@
 import Vapor
-import FluentSQLite
+import Fluent
 import DatabaseKit
+import Frontbase
 
 extension DatabaseIdentifier {
-    static var uaf: DatabaseIdentifier<SQLiteDatabase> {
+//    static var uaf: DatabaseIdentifier<SQLiteDatabase> {
+//        return .init("UAF")
+//    }
+//
+//    static var free: DatabaseIdentifier<SQLiteDatabase> {
+//        return .init("FREE")
+//    }
+    
+    static var uaf: DatabaseIdentifier< FrontbaseDatabase> {
         return .init("UAF")
     }
     
-    static var free: DatabaseIdentifier<SQLiteDatabase> {
+    static var free: DatabaseIdentifier< FrontbaseDatabase > {
         return .init("FREE")
     }
 }
@@ -15,7 +24,7 @@ extension DatabaseIdentifier {
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
     // Register providers first
-    try services.register(FluentSQLiteProvider())
+    try services.register(FluentFrontbaseProvider())
     
     // Register routes to the router
     let router = EngineRouter.default()
@@ -30,19 +39,32 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     
     // Configure a SQLite database
     //let uaf = try SQLiteDatabase(storage: .memory)
-    let uaf = try SQLiteDatabase(storage: .file(path: "/Users/kerusan/Developer/Database/SQLite/UAF.sqlite"))
-    let free = try SQLiteDatabase(storage: .file(path: "/Users/kerusan/Developer/Database/SQLite/UAF.sqlite"))
+    //let uaf = try SQLiteDatabase(storage: .file(path: "/Users/kerusan/Developer/Database/SQLite/UAF.sqlite"))
+    //let free = try SQLiteDatabase(storage: .file(path: "/Users/kerusan/Developer/Database/SQLite/UAF.sqlite"))
+
+    // Configure a Frontbase database
+    let uaf = FrontbaseDatabase (name: "UAF", onHost: "localhost", username: "_system", password: "")
+    let free = FrontbaseDatabase (name: "UAF", onHost: "localhost", username: "_system", password: "")
 
     // Register the configured SQLite database to the database config.
     var databases = DatabasesConfig()
+    //databases.add(database: uaf, as: .uaf)
+    //databases.enableLogging(on: .uaf)
+    //databases.add(database: free, as: .free)
+    //databases.enableLogging(on: .free)
+    
     databases.add(database: uaf, as: .uaf)
     databases.enableLogging(on: .uaf)
     databases.add(database: free, as: .free)
     databases.enableLogging(on: .free)
+
     services.register(databases)
 
     // Configure migrations
+    /*
     var migrations = MigrationConfig()
-    migrations.add(model: Session.self, database: .uaf)
+    migrations.add(model: Session.self, database: DatabaseIdentifier.init("UAF"))
     services.register(migrations)
+    */
 }
+

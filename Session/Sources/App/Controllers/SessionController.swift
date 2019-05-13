@@ -121,7 +121,7 @@ final class SessionController {
 
     /// Deletes a parameterized `Session`.
     func delete(_ request: Request) throws -> Future<HTTPStatus> {
-        let parameter = try request.parameters.next(Session.self)
+        let parameter = try request.content.decode(Session.self)   //next(Session.self)
         
         return parameter.flatMap { session -> Future<Void> in
             self.removeFromSessionArray(session: session)
@@ -153,6 +153,7 @@ final class SessionController {
 
 }
 
+// Shortcut to a formatted date. Move to util?
 extension Date {
     func string(format: String) -> String {
         let formatter = DateFormatter()
