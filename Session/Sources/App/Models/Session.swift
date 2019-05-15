@@ -6,7 +6,7 @@ import CFrontbaseSupport
 public let expiresInterval = 30.0
 
 /// A single entry of a Session list.
-final class Session: FrontbaseModel {
+final class Session: FluentFrontbaseModel {
     /// The unique identifier for this `Session`.
     var id: Int?
     /// A representation describing what this `Session` entails.
