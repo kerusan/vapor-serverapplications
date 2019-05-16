@@ -25,7 +25,7 @@ final class SessionController {
         do {
             let conn = try app.requestPooledConnection(to: .free).wait()
             
-            sessions = try Session.query(on: conn).all().wait()
+            sessions = try Session.query(<#String#>, on: conn).all().wait()
             try app.releasePooledConnection(conn, to: .free)
         } catch {
             print("Fetching sessions did report an error.")
