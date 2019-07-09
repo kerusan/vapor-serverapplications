@@ -1,5 +1,5 @@
 import Vapor
-import FluentSQLite
+import FluentFrontbase
 import DatabaseKit
 
 extension DatabaseIdentifier {
@@ -15,7 +15,7 @@ extension DatabaseIdentifier {
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
     // Register providers first
-    try services.register(FluentSQLiteProvider())
+    try services.register(FluentFrontbaseProvider())
     
     // Register routes to the router
     let router = EngineRouter.default()
@@ -30,8 +30,8 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     
     // Configure a SQLite database
     //let uaf = try SQLiteDatabase(storage: .memory)
-    let uaf = try SQLiteDatabase(storage: .file(path: "/Users/kerusan/Developer/Database/SQLite/UAF.sqlite"))
-    let free = try SQLiteDatabase(storage: .file(path: "/Users/kerusan/Developer/Database/SQLite/UAF.sqlite"))
+    let uaf = try FrontbaseDatabase(name: "UAF", onHost: "localhost", username: "system")
+    let free = try FrontbaseDatabase(name: "UAF", onHost: "localhost", username: "system")
 
     // Register the configured SQLite database to the database config.
     var databases = DatabasesConfig()
