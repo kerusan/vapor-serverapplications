@@ -12,7 +12,7 @@ public struct FluentFrontbaseError: Debuggable {
         identifier: String,
         reason: String,
         source: SourceLocation
-        ) {
+    ) {
         self.identifier = identifier
         self.reason = reason
         self.sourceLocation = source

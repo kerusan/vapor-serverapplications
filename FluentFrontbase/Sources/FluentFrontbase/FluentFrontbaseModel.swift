@@ -1,7 +1,10 @@
 /// A Frontbase database model.
 /// See `Fluent.Model`.
-public protocol FrontbaseModel: _FrontbaseModel where Self.ID == Int {
-    /// This SQLite Model's unique identifier.
+import Fluent
+import Frontbase
+
+public protocol FluentFrontbaseModel: _FrontbaseModel where Self.ID == Int {
+    /// This Frontbase Model's unique identifier.
     var id: ID? { get set }
 }
 
@@ -27,8 +30,9 @@ extension FrontbaseUUIDModel {
     public static var idKey: IDKey { return \.id }
 }
 
-extension FrontbaseModel {
+extension FluentFrontbaseModel {
     /// See `Model`
     public static var idKey: IDKey { return \.id }
 }
+
 

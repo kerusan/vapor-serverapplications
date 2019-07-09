@@ -5,6 +5,7 @@ import CFrontbaseSupport
 
 public let expiresInterval = 30.0
 
+/*
 /// A single entry of a Session list.
 final class Session: FluentFrontbaseModel {
     /// The unique identifier for this `Session`.
@@ -48,13 +49,19 @@ func hashString() -> String {
 extension Session: Content { }
 
 /// Allows `Session` to be used as a dynamic parameter in route definitions.
-extension Session {
-
+extension Session: Parameter {
+    static func resolveParameter(_ parameter: String, on container: Container) throws -> Session {
+        // TODO: Implement Maybe at other place
+        return try next.respond(to: request)
+    }
+    
     static func resolveParameter(_ parameter: String, on container: Container) throws -> String {
+        // TODO: Implement
         return try next.respond(to: request)
     }
     
     typealias ResolvedParameter = Session
 }
 
+ */
 
