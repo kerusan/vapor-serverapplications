@@ -25,7 +25,7 @@ final class SessionController {
         do {
             let conn = try app.requestPooledConnection(to: .free).wait()
             
-            sessions = try Session.query(<#String#>, on: conn).all().wait()
+            sessions = try Session.query(on: conn).all().wait()
             try app.releasePooledConnection(conn, to: .free)
         } catch {
             print("Fetching sessions did report an error.")
@@ -120,15 +120,12 @@ final class SessionController {
     }
 
     /// Deletes a parameterized `Session`.
-    func delete(_ request: Request) throws -> Future<HTTPStatus> {
-        let parameter = try request.parameters.next(Session.self)
-        
-        return parameter.flatMap { session -> Future<Void> in
+    func delete(_ request: Request) throws -> Future<HTTPStatus> {        
+        return try request.parameters.next(Session.self).flatMap { session -> Future<Void> in
             self.removeFromSessionArray(session: session)
             return session.delete(on: request)
         }.transform(to: .ok)
     }
-
 
     // *** Private functions for routes *********************************************
 

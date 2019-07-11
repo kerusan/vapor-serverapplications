@@ -3,11 +3,11 @@ import FluentFrontbase
 import DatabaseKit
 
 extension DatabaseIdentifier {
-    static var uaf: DatabaseIdentifier<SQLiteDatabase> {
+    static var uaf: DatabaseIdentifier<FrontbaseDatabase> {
         return .init("UAF")
     }
     
-    static var free: DatabaseIdentifier<SQLiteDatabase> {
+    static var free: DatabaseIdentifier<FrontbaseDatabase> {
         return .init("FREE")
     }
 }
@@ -24,14 +24,14 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     
     // Register middleware
     var middlewares = MiddlewareConfig() // Create _empty_ middleware config
-    // middlewares.use(FileMiddleware.self) // Serves files from `Public/` directory
     middlewares.use(ErrorMiddleware.self) // Catches errors and converts to HTTP response
     services.register(middlewares)
-    
-    // Configure a SQLite database
-    //let uaf = try SQLiteDatabase(storage: .memory)
-    let uaf = try FrontbaseDatabase(name: "UAF", onHost: "localhost", username: "system")
-    let free = try FrontbaseDatabase(name: "UAF", onHost: "localhost", username: "system")
+
+    Session.defaultDatabase = .uaf
+
+    // Configure a Frontbase database
+    let uaf = FrontbaseDatabase(name: "UAF", onHost: "localhost", username: "_system", password: "")
+    let free = FrontbaseDatabase(name: "UAF", onHost: "localhost", username: "_system", password: "")
 
     // Register the configured SQLite database to the database config.
     var databases = DatabasesConfig()
@@ -41,8 +41,9 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     databases.enableLogging(on: .free)
     services.register(databases)
 
+    
     // Configure migrations
-    var migrations = MigrationConfig()
-    migrations.add(model: Session.self, database: .uaf)
-    services.register(migrations)
+    //var migrations = MigrationConfig()
+    //migrations.add(model: Session.self, database: .uaf)
+    //services.register(migrations)
 }
