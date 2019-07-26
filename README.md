@@ -9,6 +9,8 @@ Right now there is a dummy Site generator application, a REST based datafetching
 Session application. Later there will be more services added, like a Password quality application, an autorization/login 
 Application, a Geo coding application and probably several more.
 
+The communication between the services is all done with the http protocol.
+
 The Site process is a HTML generator that uses the Backend Application API for data retrieval. 
 
 A Backend Application that uses FrontBase SQL92 server as its datastore. This is easy changable to 
