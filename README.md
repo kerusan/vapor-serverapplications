@@ -18,7 +18,7 @@ SQLite or some other Fluent-based data store. It has the systems main Rest API f
 client access.
 
 Then there is a Session application that is responsible for handling the sessions. It is supposed to be 
-used a as singeton instance process . Sessions are short lived (configurable) and database stored. This 
+used as a singeton instance process . Sessions are short lived (configurable) and database stored. This 
 application has its own memory based local datastore but also one using FrontBase for persistance. Database 
 storage is handled asynchronous for faster access to this service.
 
