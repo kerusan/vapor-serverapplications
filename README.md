@@ -22,7 +22,9 @@ used a singeton instance process . Sessions are short lived (configurable) and d
 has its own memory based local datastore but also one using FrontBase for persistance. Database storage is 
 handled async for faster access to this service.
 
-Since this is 0.1 its not yet an integrated working soulutions. 
-Also the FrontBase database adaptor/frameworks are not public open source either, but will be later. 
+Since this is 0.1 it's not yet an integrated working solution. 
+The FrontBase database adaptor/frameworks are also not public open source either, but will be later. 
 It is now working in our private developer environment with Vapor 3.0 but we are waiting for Vapor 4.0 
-before we release it. The FrontBase Database Adaptor will then be open sourced.
+before we release it open sourced. 
+DM me for more information.
+
