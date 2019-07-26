@@ -13,7 +13,7 @@ The communication between the services are all done with the http protocol.
 
 The Site process is a HTML generator using Leaf, that uses the Backend Application API for data retrieval. 
 
-A Backend Application that uses FrontBase SQL92 server as its datastore. This is easy changable to 
+A Backend Application that uses FrontBase SQL92 server ( http://frontbase.com ) as its datastore. This is easy changable to 
 SQLite or some other Fluent-based data store. It has the systems main Rest API for 
 client access.
 
