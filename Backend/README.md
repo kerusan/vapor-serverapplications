@@ -15,7 +15,7 @@
     </br>
     </br>
 </p>
-<h2>Built using the Vapor application framework</h2>
+<h2>Built using the Vapor Web Application Framework</h2>
 <p align="center">
     </br>
     <img src="https://user-images.githubusercontent.com/1342803/36623515-7293b4ec-18d3-11e8-85ab-4e2f8fb38fbd.png" width="320" alt="API Template">
