@@ -1,4 +1,4 @@
-# vapor-serverapplications
+## A Generalized micro service server environment in Swift Vapor
 
 Version 0.1
 
@@ -11,11 +11,11 @@ Later a Password quality application, an autorization/login Application, a Geo c
 The Site process is a HTML generator that uses the Backend Application for data retrieval. 
 
 A Backend Application that uses FrontBase SQL92 server for its datastore. Was before and is easy
-changable to SQL SQLite or some other Fluent-based data store.
+changable to SQLite or some other Fluent-based data store.
 
 Then there is a Session application that is responsible for handling the sessions. 
 
-Since this is 0.1 its not a integraded working soulutions yet. 
-Also the FrontBase database adaptor/frameworks are not public open source yet, but will be later. 
-It is now working in our private developer environment wit Vapor 3.0 but we are waiting for Vapor 4.0 
-before we release it. The FrontBase Database Adaptorthen will be open sourced later.
+Since this is 0.1 its not yet an integrated working soulutions. 
+Also the FrontBase database adaptor/frameworks are not public open source either, but will be later. 
+It is now working in our private developer environment with Vapor 3.0 but we are waiting for Vapor 4.0 
+before we release it. The FrontBase Database Adaptor will then be open sourced.
