@@ -23,8 +23,9 @@
     <br>
     It is using the FrontBase SQL92 database engine for storage. The adapter to Frontbase is for now kept 
     on a private git server, it is based on 3 frameworks the CFrontbaseSupport framework, Frontbase framework
-    and FluentFrontbase (The Migration part is not included yet so there has to be tables befor running the 
-    application).
+    and FluentFrontbase (The Migration part in the FluentFrontbase framework is not included yet so there has 
+    to be tables before running the application).
+    <br>
     <br>
     Models that are included right now is only the User.
     In the future there will probably be an API for business functions also.
