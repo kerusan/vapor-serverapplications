@@ -2,11 +2,11 @@
 
 Version 0.1
 
-This is some applications written in Swift / Vapor that will make up an environtment for a micro services
+This is some applications written in Swift / Vapor that will make up a generalized environment for a micro services
 system. 
 
 Right now there is a dummy Site generator, an datafetching Backend application and a Session application.
-Later a Password quality application, an autorization/login Application, a 
+Later a Password quality application, an autorization/login Application, a Geo coding application and more.
 
 The Site process is a HTML generator that uses the Backend Application for data retrieval. 
 
