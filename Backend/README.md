@@ -1,6 +1,6 @@
+<h1>A REST based backend application stub.</h1>
 <p>
-    <br>
-    <h1>A REST based backend application stub.</h1>
+    </br>
     </br>
     The Backend application has a REST based API for retrieving and storing the different Model objects. 
     </br>
@@ -15,8 +15,8 @@
     </br>
     </br>
 </p>
+<h2>Built using the Vapor application framework</h2>
 <p align="center">
-    <h2>Built using the Vapor application framework</h2>
     </br>
     <img src="https://user-images.githubusercontent.com/1342803/36623515-7293b4ec-18d3-11e8-85ab-4e2f8fb38fbd.png" width="320" alt="API Template">
     </br></br>
