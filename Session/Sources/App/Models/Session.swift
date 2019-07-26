@@ -1,7 +1,5 @@
-import FluentFrontbase
 import Vapor
-
-public let expiresInterval = 30.0
+import FluentFrontbase
 
 /// A single entry of a Session list.
 final class Session: FrontbaseModel {

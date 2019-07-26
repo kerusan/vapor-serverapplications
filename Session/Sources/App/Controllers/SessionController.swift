@@ -1,7 +1,6 @@
 import Vapor
 import Fluent
 import Dispatch
-import DatabaseKit
 
 /// Controls basic CRUD operations on `Session`s.
 final class SessionController {

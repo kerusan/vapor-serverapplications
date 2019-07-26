@@ -1,6 +1,7 @@
 import Vapor
 import FluentFrontbase
-import DatabaseKit
+
+public let expiresInterval = 30.0
 
 extension DatabaseIdentifier {
     static var uaf: DatabaseIdentifier<FrontbaseDatabase> {
