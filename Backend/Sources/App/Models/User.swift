@@ -1,8 +1,8 @@
-import FluentSQLite
+import FluentFrontbase
 import Vapor
 
 /// A single entry of a User list.
-final class User: SQLiteModel {
+final class User: FrontbaseModel {
     /// A title describing what this `User` entails.
     var id: Int?
     var firstName: String

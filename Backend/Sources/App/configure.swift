@@ -1,8 +1,10 @@
-import FluentSQLite
 import Vapor
+import FluentFrontbase
+
+public let expiresInterval = 30.0
 
 extension DatabaseIdentifier {
-    static var uaf: DatabaseIdentifier<SQLiteDatabase> {
+    static var uaf: DatabaseIdentifier<FrontbaseDatabase> {
         return .init("UAF")
     }
 }
@@ -10,7 +12,7 @@ extension DatabaseIdentifier {
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
     // Register providers first
-    try services.register(FluentSQLiteProvider())
+    try services.register(FluentFrontbaseProvider())
 
     // Register routes to the router
     let router = EngineRouter.default()
@@ -19,13 +21,13 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 
     // Register middleware
     var middlewares = MiddlewareConfig() // Create _empty_ middleware config
-    // middlewares.use(FileMiddleware.self) // Serves files from `Public/` directory
     middlewares.use(ErrorMiddleware.self) // Catches errors and converts to HTTP response
     services.register(middlewares)
 
+    User.defaultDatabase = .uaf
+
     // Configure a SQLite database
-    //let uaf = try SQLiteDatabase(storage: .memory)
-    let uaf = try SQLiteDatabase(storage: .file(path: "/Users/kerusan/Developer/Database/SQLite/UAF.sqlite"))
+    let uaf = FrontbaseDatabase(name: "UAF", onHost: "localhost", username: "_system", password: "")
 
     // Register the configured SQLite database to the database config.
     var databases = DatabasesConfig()
@@ -34,7 +36,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     services.register(databases)
 
     // Configure migrations
-    var migrations = MigrationConfig()
-    migrations.add(model: User.self, database: .uaf)
-    services.register(migrations)
+    //    var migrations = MigrationConfig()
+    //    migrations.add(model: User.self, database: .uaf)
+    //    services.register(migrations)
 }
