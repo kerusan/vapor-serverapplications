@@ -1,6 +1,6 @@
 <p>
     <br>
-    <h1>A backend application stub.</h1>
+    <h1>A REST based backend application stub.</h1>
     </br>
     The Backend application has a REST based API for retrieving and storing the different Model objects. 
     </br>
