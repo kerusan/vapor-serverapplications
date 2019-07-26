@@ -1,6 +1,6 @@
 <p>
     <br>
-    <H2>A backend application stub.</H1>
+    <h1>A backend application stub.</h1>
     </br>
     The Backend application has a REST based API for retrieving and storing the different Model objects. 
     </br>
@@ -12,10 +12,12 @@
     </br>
     Models that are included right now is only the User.
     In the future there will probably be an API for business functions also.
-    <br>
+    </br>
     </br>
 </p>
 <p align="center">
+    <h2>Built using the Vapor application framework</h2>
+    </br>
     <img src="https://user-images.githubusercontent.com/1342803/36623515-7293b4ec-18d3-11e8-85ab-4e2f8fb38fbd.png" width="320" alt="API Template">
     </br></br>
     <a href="http://docs.vapor.codes/3.0/">
