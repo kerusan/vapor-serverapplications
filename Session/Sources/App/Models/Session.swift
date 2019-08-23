@@ -38,7 +38,7 @@ func hashString() -> String {
 }
 
 /// Allows `Session` to be used as a dynamic migration.
-//extension Session: Migration { }
+extension Session: Migration { }
 
 /// Allows `Session` to be encoded to and decoded from HTTP messages.
 extension Session: Content { }

@@ -34,7 +34,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     let uaf = FrontbaseDatabase(name: "UAF", onHost: "localhost", username: "_system", password: "")
     let free = FrontbaseDatabase(name: "UAF", onHost: "localhost", username: "_system", password: "")
 
-    // Register the configured SQLite database to the database config.
+    // Register the configured Frontbase database to the database config.
     var databases = DatabasesConfig()
     databases.add(database: uaf, as: .uaf)
     databases.enableLogging(on: .uaf)
@@ -44,7 +44,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 
     
     // Configure migrations
-    //var migrations = MigrationConfig()
-    //migrations.add(model: Session.self, database: .uaf)
-    //services.register(migrations)
+    var migrations = MigrationConfig()
+    migrations.add(model: Session.self, database: .uaf)
+    services.register(migrations)
 }
