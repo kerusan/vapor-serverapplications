@@ -1,6 +1,6 @@
 ## A Generalized micro service server environment in Swift Vapor
 
-Version 0.1
+Version 0.2
 
 Here are some applications written in Swift / Vapor that will make up a generalized environment 
 for a micro services system.
