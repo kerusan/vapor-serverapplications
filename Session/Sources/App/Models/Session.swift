@@ -44,7 +44,6 @@ extension Session: Migration { }
 extension Session: Content { }
 
 /// Allows `Session` to be used as a dynamic parameter in route definitions.
-
 extension Session: Parameter { }
 
 
