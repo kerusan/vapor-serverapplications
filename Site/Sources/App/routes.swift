@@ -2,7 +2,7 @@ import Vapor
 
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
-    // Launches Boplats page
+    // Launches Oops page
     let noController = NoController()
     router.get { req -> Future<View> in
         return try noController.noroute(request: req)

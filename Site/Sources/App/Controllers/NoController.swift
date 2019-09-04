@@ -15,7 +15,7 @@ final class NoController {
         let view = try request.view()
     
         return view.render("login", [
-                "name": " till Boplats"
+                "name": " till Oops"
             ])
     }
 

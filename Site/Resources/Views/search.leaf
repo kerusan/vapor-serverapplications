@@ -3,7 +3,7 @@
 #set("body") {
     <div class="start">
         </br></br>
-        <img src="https://nya.boplats.se/231/static/logo.png">
+        <img src="https://nya.oops.se/images/oopstag.png">
 
 <h1>Sök användare # #(user.id)</h1>
 <h2 style="color:black;">#(user.firstName) #(user.lastName)</h2>

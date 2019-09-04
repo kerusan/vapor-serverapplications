@@ -11,7 +11,7 @@ import Vapor
 final class LoginController {
 
     func login(request: Request) throws -> Future<View>  {
-        var name = " till Boplats - Var vänlig logga in"
+        var name = " till Oops - Var vänlig logga in"
         let hasParameters = request.parameters.values.count > 0
 
         if hasParameters {
