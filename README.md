@@ -1,8 +1,8 @@
 ## A Generalized micro service server environment in Swift Vapor
 
-Version 0.1
+Version 0.2
 
-Here are some applications written in Swift / Vapor that will make up a generalized environment 
+Here are some applications written in Swift / Vapor that will make up a generalized (stub) environment 
 for a micro services system.
 
 Right now there is a dummy Site generator application, a REST based datafetching Backend application and 
@@ -22,7 +22,7 @@ used as a singeton instance process . Sessions are short lived (configurable) an
 application has its own memory based local datastore but also one using FrontBase for persistance. Database 
 storage is handled asynchronous for faster access to this service.
 
-Since this is version 0.1, it's not yet an integrated working solution. 
+Since this is version 0.2, it's not yet an integrated working solution. 
 The FrontBase database adaptor/frameworks are also not public open source, but will be later. 
 Those frameworks are now working in our private developer environment with Vapor 3.0 but we are waiting for 
 Vapor 4.0 before we release it open sourced. 
