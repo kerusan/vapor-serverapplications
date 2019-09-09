@@ -1,5 +1,5 @@
 import Vapor
-import FluentFrontbase
+import Frontbase
 
 public let expiresInterval = 30.0
 
